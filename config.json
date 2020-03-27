@@ -1,0 +1,22 @@
+{
+	"api_token": "0000000000:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+	"email_delay": 5,
+	"autosave_interval": 5,
+	"botdb_file": "botdb.json",
+	"gmail_creds": "token.pickle",
+	"admin_chats": [],
+
+	"messages": {
+		"unauthorized": "Você não tem autorização para tal, tente novamente no chat da turma.",
+		"syntax_error": "Não entendi muito bem...",
+
+		"essentials": {
+
+			"start": "Ligado !",
+			"stop": "Desligado :/",
+			"quack": "Quack Quack !",
+			"help": "Lista de comandos úteis:\n/tarefas - Listas e EPs\n/aulas - Aulas que acontecerão\n/avisos - Avisos gerais\n/grupos - link de grupos úteis\n/quack - faz quack quack\nNem tudo está aqui, então *sempre* olhe o E-disciplinas :)"
+
+		}
+	}
+}
