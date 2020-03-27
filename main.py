@@ -1,11 +1,3 @@
-from telegram.ext import Updater, CommandHandler, DictPersistence
-from telegram.error import TelegramError, Unauthorized, BadRequest, TimedOut, ChatMigrated, NetworkError
-import json
-import essentials
-import manager
-import getmail
-
-
 # No context.bot_data existe um dicionário (?) que pode armazenar informações do bot como um todo,
 # é nesta estrutura que está todas as informações "editáveis" por usuários,
 # não sei se é possível fazer algo melhor mas isso já dá conta de não apagar as informações depois
@@ -14,6 +6,13 @@ import getmail
 # config.json = arquivo de configurações
 # botdb_file serve para salvar os dados de context.bot_data 
 
+
+from telegram.ext import Updater, CommandHandler, DictPersistence
+from telegram.error import TelegramError, Unauthorized, BadRequest, TimedOut, ChatMigrated, NetworkError
+import json
+import essentials
+import manager
+import getmail
 
 with open('config.json') as json_data_file:
 		config = json.load(json_data_file)
