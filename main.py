@@ -9,10 +9,12 @@
 
 from telegram.ext import Updater, CommandHandler, DictPersistence
 from telegram.error import TelegramError, Unauthorized, BadRequest, TimedOut, ChatMigrated, NetworkError
+import datetime
 import json
 import essentials
 import manager
 import getmail
+
 
 with open('config.json') as json_data_file:
 		config = json.load(json_data_file)
@@ -23,7 +25,7 @@ with open(config['botdb_file']) as json_data_file:
 def autosave(context):
 	with open(config['botdb_file'], 'w') as json_data_file:
 		json.dump(context.bot_data, json_data_file, indent=2)
-	print("Autosaved !")
+	# print("Autosaved !")
 
 
 def main():
@@ -31,6 +33,9 @@ def main():
 	upd = Updater(config['api_token'], use_context=True, persistence=DictPersistence(bot_data_json = botdb))
 
 	# coloca as funções GetNewEmails e autosave para rodarem periodicamente
+	# tz = timezone
+	tz = datetime.timezone(datetime.timedelta(days=-1, seconds=75600), '-03')
+	upd.job_queue.run_daily(manager.CheckTarefas, datetime.time(17, tzinfo=tz))
 	upd.job_queue.run_repeating(getmail.GetNewEmails, interval=config['email_delay'], first=0)
 	upd.job_queue.run_repeating(autosave, interval=config['autosave_interval'], first=0)
 	
