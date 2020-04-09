@@ -29,7 +29,7 @@ def broadcast(context, message, restriction={}, parse_mode='Markdown'):
 			context.bot_data['active_ids'].remove(chat_id)
 			print(chat_id, " stopped!")
 
-		print("<<<"+message+">>> foi enviada para todos os usuarios, restriction = "+restriction)
+		print("<<<"+message+">>> foi enviada para todos os usuarios, restriction = ", restriction)
 	except:
-		print("erro ao tentar transmitir <<<"+message+">>>, restriction = "+restriction)
+		print("erro ao tentar transmitir <<<"+message+">>>, restriction = ", restriction)
 
