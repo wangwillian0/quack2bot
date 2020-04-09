@@ -3,6 +3,7 @@ from telegram.error import Unauthorized
 import base64
 import pickle
 import json
+import utils
 
 with open('config.json') as json_data_file:
         config = json.load(json_data_file)
@@ -13,7 +14,7 @@ service = build('gmail', 'v1', credentials=creds)
 
 
 # retorna a lista de IDs dos emails com todas labels colocadas em label_ids 
-def ListMessageIds(label_ids = ['Label_xxxxxxxxxxxxxxxxxxx', 'UNREAD']):
+def ListMessageIds(label_ids = ['Label_XXXXXXXXXXXXXXXXXXX', 'UNREAD']):
     response = service.users().messages().list(userId='me', labelIds=label_ids, maxResults=20).execute()
 
     msg_ids = []
@@ -61,29 +62,17 @@ def GetNewEmails(context):
     try:
         msg_list = ListMessageIds()
         msg_list.reverse()
-        print(msg_list, context.bot_data['active_ids'])
+        # print(msg_list, context.bot_data['active_ids'])
     except:
         print("Erro em getmail.ListMessageIds()...")
         return
 
     for item in msg_list:
         MarcAsRead(item)
-        message = GetMessage(item)
-        if message == None:
-            continue
-
-        # unauth_ids irá guardas os ids dos chats que pararam o bot pelo telegram
-        # e que ainda estão na lista de active_ids
-        unauth_ids = []
-        for chat_id in context.bot_data['active_ids']:
-            try:
-                context.bot.send_message(chat_id=chat_id, text=message)
-            except Unauthorized:
-                unauth_ids.append(chat_id)
-                print("não autorizado por ", chat_id)
-            except:
-                print("erro desconhecido(?)")
-        
-        for chat_id in unauth_ids:
-            context.bot_data['active_ids'].remove(chat_id)
-            print(chat_id, " stopped!")
+        try:
+            message = GetMessage(item)
+            if message == None:
+                continue
+            utils.broadcast(context, message)
+        except:
+            print("Erro no envio de um email")
