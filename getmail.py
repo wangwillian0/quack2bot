@@ -73,6 +73,6 @@ def GetNewEmails(context):
             message = GetMessage(item)
             if message == None:
                 continue
-            utils.broadcast(context, message)
+            utils.broadcast(context, message, parse_mode='HTML')
         except:
             print("Erro no envio de um email")
