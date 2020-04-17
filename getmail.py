@@ -14,7 +14,7 @@ service = build('gmail', 'v1', credentials=creds)
 
 
 # retorna a lista de IDs dos emails com todas labels colocadas em label_ids 
-def ListMessageIds(label_ids = ['Label_XXXXXXXXXXXXXXXXXXX', 'UNREAD']):
+def ListMessageIds(label_ids = [config['email_filter_label'], 'UNREAD']):
     response = service.users().messages().list(userId='me', labelIds=label_ids, maxResults=20).execute()
 
     msg_ids = []

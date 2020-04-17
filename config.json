@@ -1,5 +1,6 @@
 {
 	"api_token": "0000000000:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+	"email_filter_label": "Label_XXXXXXXXXXXXXXXXXXX",
 	"email_delay": 5,
 	"autosave_interval": 5,
 	"botdb_file": "botdb.json",
