@@ -20,6 +20,8 @@ def broadcast(context, message, restriction={}, parse_mode=''):
 			    print("não autorizado por ", chat_id)
 			except Exception as ex:
 				print("[Erro]: ", ex)
+				for admin_id in config['admin_chats']:
+					context.bot.send_message(chat_id=admin_id, text="[admin]: Erro ao tentar transmitir uma messagem")
 
 		for chat_id in unauth_ids:
 			context.bot_data['active_ids'].remove(chat_id)
