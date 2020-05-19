@@ -48,6 +48,7 @@ def main():
 	upd.dispatcher.add_handler(CommandHandler('aulas', manager.aulas))
 	upd.dispatcher.add_handler(CommandHandler('avisos', manager.avisos))
 	upd.dispatcher.add_handler(CommandHandler('grupos', manager.grupos))
+	upd.dispatcher.add_handler(CommandHandler('broadcast', manager.broadcast))
 	upd.dispatcher.add_handler(CommandHandler('edit', manager.edit))
 
 	# deixa rodando as coisas (??)

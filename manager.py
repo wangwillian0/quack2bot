@@ -107,6 +107,29 @@ def avisos(update, context):
 	context.bot.send_message(chat_id=chat_id, text=context.bot_data['manager']['avisos'], parse_mode='Markdown')
 
 
+# transmite uma mensagem para todos
+def broadcast(update, context):
+	chat_id = update.effective_chat.id
+
+	# checa se o usuário tem permissão para a transmissão 
+	if chat_id not in config['admin_chats']:
+		context.bot.send_message(chat_id=chat_id, text=config['messages']['unauthorized'])
+		return
+
+	try:
+		# raw_data = toda a estrutura da mensagem retornada pelo telegram quando o bot é chamado
+		# text = texto da parte importante apos o comando
+		raw_data = update.message
+		text = raw_data.text.partition('\n')[2]
+
+		# envia a mensagem para todos
+		utils.broadcast(context, "Mensagem do admin:\n"+text)
+
+	except:
+		context.bot.send_message(chat_id=chat_id, text=config['messages']['syntax_error'])
+
+
+
 # edita a mensagem presente em context.bot_data['manager']
 def edit(update, context):
 	chat_id = update.effective_chat.id
