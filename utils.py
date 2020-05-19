@@ -8,7 +8,7 @@ with open('config.json') as json_data_file:
 
 
 # envia uma mensagem para todos os usuarios ativos
-def broadcast(context, message, restriction={}, parse_mode='MarkdownV2'):
+def broadcast(context, message, restriction={}, parse_mode=''):
 	try:
 		unauth_ids = []
 		
