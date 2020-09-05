@@ -8,10 +8,8 @@
 
 
 from telegram.ext import Updater, CommandHandler, DictPersistence
-from telegram.error import TelegramError, Unauthorized, BadRequest, TimedOut, ChatMigrated, NetworkError
 import datetime
 import json
-import essentials
 import manager
 import getmail
 
@@ -27,6 +25,18 @@ def autosave(context):
 		json.dump(context.bot_data, json_data_file, indent=2)
 	# print("Autosaved !")
 
+def start(update, context):
+        chat_id = update.effective_chat.id
+        context.bot.send_message(chat_id=chat_id, text=config['messages']['start'])
+        print(chat_id, "started !")
+def help_(update, context):
+        chat_id = update.effective_chat.id
+        context.bot.send_message(chat_id=chat_id, text=config['messages']['help'])
+def quack(update, context):
+        chat_id = update.effective_chat.id
+        context.bot.send_message(chat_id=chat_id, text=config['messages']['quack'])
+
+
 
 def main():
 	# isso serve pra fazer a ligação com o telegram (?)
@@ -35,20 +45,15 @@ def main():
 	# coloca as funções GetNewEmails e autosave para rodarem periodicamente
 	# tz = timezone
 	tz = datetime.timezone(datetime.timedelta(days=-1, seconds=75600), '-03')
-	upd.job_queue.run_daily(manager.CheckTarefas, datetime.time(17, tzinfo=tz))
 	upd.job_queue.run_repeating(getmail.GetNewEmails, interval=config['email_delay'], first=0)
 	upd.job_queue.run_repeating(autosave, interval=config['autosave_interval'], first=0)
 	
 	# coloca os comandos seguintes disponíveis para o usuario
-	upd.dispatcher.add_handler(CommandHandler('start', essentials.start))
-	upd.dispatcher.add_handler(CommandHandler('stop', essentials.stop))
-	upd.dispatcher.add_handler(CommandHandler('help', essentials.help_))
-	upd.dispatcher.add_handler(CommandHandler('quack', essentials.quack))
-	upd.dispatcher.add_handler(CommandHandler('tarefas', manager.tarefas))
+	upd.dispatcher.add_handler(CommandHandler('start', start))
+	upd.dispatcher.add_handler(CommandHandler('help', help_))
+	upd.dispatcher.add_handler(CommandHandler('quack', quack))
 	upd.dispatcher.add_handler(CommandHandler('aulas', manager.aulas))
-	upd.dispatcher.add_handler(CommandHandler('avisos', manager.avisos))
 	upd.dispatcher.add_handler(CommandHandler('grupos', manager.grupos))
-	upd.dispatcher.add_handler(CommandHandler('broadcast', manager.broadcast))
 	upd.dispatcher.add_handler(CommandHandler('edit', manager.edit))
 
 	# deixa rodando as coisas (??)

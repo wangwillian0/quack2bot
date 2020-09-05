@@ -1,9 +1,4 @@
 {
-  "active_ids": [],
-  "manager": {
-    "aulas": "",
-    "grupos": "",
-    "avisos": "",
-    "tarefas": ""
-  }
+   "aulas": "",
+   "grupos": ""
 }
