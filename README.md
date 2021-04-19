@@ -1,3 +1,6 @@
+# quack2bot morreu :(
+# veja [quack3bot](https://github.com/wilwxk/quack3bot) - versão em javascript mais simples e serverless :)
+
 # quack2bot
 Quack quack
 
